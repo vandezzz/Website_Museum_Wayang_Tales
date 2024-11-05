@@ -1,10 +1,7 @@
-// import Data from '../DATA.json'; // Jika Anda menggunakan data dari file JSON
-import Data from '../model/artikel.js'; // Import model artikel
-
 const Artikel = {
   async fetchArticles() {
     try {
-      const response = await fetch('http://localhost:3000/articles'); // Mengambil data artikel dari server
+      const response = await fetch('http://localhost:3000/api/articles'); // Mengambil data artikel dari server
       if (!response.ok) throw new Error('Network response was not ok');
       const articles = await response.json(); // Mengonversi respons menjadi JSON
       return articles; 
@@ -29,8 +26,8 @@ const Artikel = {
 
     const articleHTML = articles.map(article => `
       <div class="article">
-        <h2>Nama: ${article.nama}</h2>
-        <p>Jurusan: ${article.jurusan}</p>
+        <h2>${article.judul}</h2>
+        <p>Deskripsi: ${article.isi}</p>
       </div>
     `).join('');
 
@@ -39,6 +36,7 @@ const Artikel = {
         ${articleHTML}
       </div>
     `;
+    
   },
 
   async afterRender() {
