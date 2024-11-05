@@ -9,6 +9,7 @@ import '../styles/page.css';
 import '../styles/login.css';
 import App from './view/app';
 
+
 const app = new App({
     button: document.querySelector('#hamburgerButton'),
     drawer: document.querySelector('#navigationDrawer'),
