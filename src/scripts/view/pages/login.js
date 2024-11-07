@@ -6,12 +6,12 @@ const Login = {
         <div class="login-container">
           <div class="login-form">
             <h2 class="log">Masuk</h2>
-            <form id="login-form" action="/login" method="POST">
+            <form id="login-form">
               <div class="form-group">
-                <input type="email" id="email" name="email" required placeholder="email">
+                <input type="text" id="username" name="username" required placeholder="Username" />
               </div>
               <div class="form-group">
-                <input type="password" id="password" name="password" required placeholder="password">
+                <input type="password" id="password" name="password" required placeholder="Password" />
               </div>
               <button type="submit" class="log">Masuk</button>
             </form>
@@ -29,11 +29,41 @@ const Login = {
 
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // Simulate login success
-      localStorage.setItem('isLoggedIn', 'true');
-      window.location.href = '#/beranda'; 
+
+      // Ambil data dari form
+      let username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Hapus simbol "@" jika ada dalam username
+      username = username.replace('@', '');
+
+      // Kirim request POST ke backend API untuk login
+      try {
+        const response = await fetch('http://localhost:3000/api/auth/signin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Jika login berhasil, simpan token dan arahkan ke halaman beranda
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('accessToken', data.accessToken); // Menyimpan token akses
+          window.location.href = '#/beranda';
+        } else {
+          // Jika login gagal, tampilkan pesan error
+          alert(data.message || 'Login failed');
+        }
+      } catch (error) {
+        console.error('Error during login:', error);
+        alert('Something went wrong. Please try again later.');
+      }
     });
-  }
+  },
 };
 
 export default Login;
