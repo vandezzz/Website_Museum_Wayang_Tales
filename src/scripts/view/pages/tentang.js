@@ -56,45 +56,39 @@ const Tentang = {
       </section>
 
       <section class="team text-center py-5">
-      <h2 class="judul5">Team Kami</h2>
-      <div class="container">
-      <div class="row justify-content-center">
-          <div class="col-md-6 col-lg-3">
-            <div class="img-block mb-5">
-              <img src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/team/t4.jpg" class="img-fluid  img-thumbnail rounded-circle" alt="image1">
-              <div class="content mt-2">
-                <h4>Zain Knob</h4>
-                <p class="text-muted">Mechanical Engineer</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ">
-            <div class="img-block mb-5">
-              <img src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/team/t2.jpg" class="img-fluid  img-thumbnail rounded-circle" alt="image1">
-              <div class="content mt-2">
-                <h4>Syndia Lee</h4>
-                <p class="text-muted">Software Engineer</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="img-block mb-5">
-              <img src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/team/t1.jpg" class="img-fluid  img-thumbnail rounded-circle" alt="image1">
-              <div class="content mt-2">
-                <h4>Noel Flantier</h4>
-                <p class="text-muted">Joomla Specialist</p>
-              </div>
-            </div>
+        <h2 class="judul5">Team Kami</h2>
+        <div class="container">
+          <div id="team-container" class="row justify-content-center">
           </div>
         </div>
-      </div>
-    </section>
-    
+      </section>
     `;
   },
 
   async afterRender() {
-    // Fungsi ini akan dipanggil setelah render()
+    try {
+      const response = await fetch('http://localhost:3000/api/profileList'); 
+      const profiles = await response.json();
+      
+      const teamContainer = document.getElementById('team-container');
+      
+      profiles.forEach(profile => {
+        const profileHTML = `
+          <div class="col-md4 col-lg-4">
+            <div class="img-block mb-5">
+              <img src="${profile.photo_url || 'https://via.placeholder.com/150'}" class="img-fluid img-thumbnail rounded-circle" alt="${profile.nama}">
+              <div class="content mt-2">
+                <h4>${profile.nama}</h4>
+                <p class="text-muted">${profile.jurusan}</p>
+              </div>
+            </div>
+          </div>
+        `;
+        teamContainer.insertAdjacentHTML('beforeend', profileHTML);
+      });
+    } catch (error) {
+      console.error('Error fetching profile data:', error);
+    }
   },
 };
 
