@@ -1,6 +1,8 @@
+// public.controller.js
 const db = require("../models");
 const Artikel = require("../models/artikel.model");
 const TokohWayang = require("../models/tokohWayang.model");
+const Beranda = require("../models/beranda.model");
 
 // POST DATA KE DATABASE
 exports.postArticle = async (req, res) => {
@@ -96,3 +98,34 @@ exports.deleteAllTokohWayang = async (req, res) => {
   }
 };
 
+//Beranda
+
+exports.postBeranda = async (req, res) => {
+  const { beranda } = req.body; 
+  
+  if (!Array.isArray(beranda)) {
+    return res.status(400).json({ message: "Data artikel harus berupa array." });
+  }
+
+  try {
+    const savedArticles = await Beranda.insertMany(beranda);
+    res.status(201).json(savedArticles); 
+  } catch (error) {
+    res.status(500).json({ message: error.message }); 
+  }
+};
+
+exports.getBeranda = async (req, res) => {
+  const { beranda } = req.body; 
+  
+  if (!Array.isArray(beranda)) {
+    return res.status(400).json({ message: "Data beranda harus berupa array." });
+  }
+
+  try {
+    const savedBeranda = await Beranda.insertMany(beranda); 
+    res.status(201).json(savedBeranda); 
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

@@ -54,7 +54,7 @@ const Artikel = {
       const alatMusikKonten = article.alatMusik?.konten || 'Informasi tentang alat musik yang digunakan dalam pertunjukan wayang.';
       const alatMusikGambar = article.alatMusik?.gambar || 'path/to/default/image.jpg'; 
       const alatMusikSubtitle = article.alatMusik?.subtitle || 'Deskripsi alat musik pada wayang.';
-
+ 
       return `
         <div class="main-container">
           <img src="./walpaper.png" alt="Wallpaper Image" class="walpaper">
