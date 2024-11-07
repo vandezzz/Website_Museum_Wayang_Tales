@@ -60,3 +60,39 @@ exports.getTokohWayang = async (req, res) => {
   }
 }
 
+// DELETE DATA ARTIKEL BERDASARKAN ID
+exports.deleteArticle = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedArticle = await Artikel.findByIdAndDelete(id);
+
+    if (!deletedArticle) {
+      return res.status(404).json({ message: "Artikel tidak ditemukan." });
+    }
+    res.status(200).json({ message: "Artikel berhasil dihapus." });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// DELETE SEMUA ARTIKEL
+exports.deleteAllArticles = async (req, res) => {
+  try {
+    const result = await Artikel.deleteMany(); // Menghapus semua artikel
+    res.status(200).json({ message: `${result.deletedCount} artikel telah dihapus.` });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// DELETE SEMUA TOKOH WAYANG
+exports.deleteAllTokohWayang = async (req, res) => {
+  try {
+    const result = await TokohWayang.deleteMany(); // Menghapus semua tokoh wayang
+    res.status(200).json({ message: `${result.deletedCount} tokoh wayang telah dihapus.` });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+

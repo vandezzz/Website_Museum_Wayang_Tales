@@ -8,10 +8,11 @@ module.exports = function(app) {
     );
     next();
   });
-
+ 
   app.post("/api/articles", controller.postArticle);
   app.post("/api/tokohwayang", controller.postTokohWayang)
   app.get("/api/articles", controller.getArticle);
   app.get("/api/tokohwayang", controller.getTokohWayang);
-
+  app.delete("/api/articles/:id", controller.deleteArticle);
+  app.delete("/api/articles", controller.deleteAllArticles);
 };
