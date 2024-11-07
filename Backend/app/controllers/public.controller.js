@@ -1,6 +1,7 @@
 // public.controller.js
 const db = require("../models");
 const Artikel = require("../models/artikel.model");
+const ProfileList = require("../models/profileList.model");
 const TokohWayang = require("../models/tokohWayang.model");
 const Beranda = require("../models/beranda.model");
 
@@ -35,6 +36,20 @@ exports.postArticle = async (req, res) => {
     }
   }
 
+  exports.postProfileList = async (req, res) => {
+    const { profile_list } = req.body;
+    
+    if (!Array.isArray(profile_list)) {
+      return res.status(400).json({ message: "Data harus berupa array." });
+    } 
+    try {
+      const savedProfileList = await ProfileList.insertMany(profile_list);
+      res.status(201).json(savedProfileList); 
+    } catch (error) {
+      res.status(500).json({ message: error.message }); 
+    }
+  }
+
   // GET DATA DARI DATABASE
 exports.getArticle = async (req, res) => {
   try {
@@ -57,6 +72,19 @@ exports.getTokohWayang = async (req, res) => {
       return res.status(200).json({ message: "Data Kosong" })
     }
     res.status(200).json(tokohWayang); 
+  } catch (error) {
+    res.status(500).json({ message: error.message }); 
+  }
+}
+
+exports.getProfileList = async (req, res) => {
+  try {
+    const profile_list = await ProfileList.find();
+
+    if (profile_list.length == 0) {
+      return res.status(200).json({ message: "Data Kosong" })
+    }
+    res.status(200).json(profile_list); 
   } catch (error) {
     res.status(500).json({ message: error.message }); 
   }

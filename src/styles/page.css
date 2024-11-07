@@ -361,6 +361,13 @@ form button:hover {
   margin-right: 40px;
 }
 
+.team .img-block img {
+  width: 200px;
+  height: 200px; 
+  object-fit: cover; 
+  border-radius: 50%;
+}
+
 button{
   font-family: "Nunito-Sans";
 }
