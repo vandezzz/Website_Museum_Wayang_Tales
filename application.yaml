@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/vandezzz/Website_Museum_Wayang_Tales.git
     targetRevision: HEAD
-    path: ""
+    path: .
   destination:
     server: https://kubernetes.default.svc
     namespace: my-app
