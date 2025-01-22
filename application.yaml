@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my-app-argo-application
+  name: final-test-application
   namespace: argocd
 spec:
   project: default
@@ -9,10 +9,10 @@ spec:
   source:
     repoURL: https://github.com/vandezzz/Website_Museum_Wayang_Tales.git
     targetRevision: HEAD
-    path: .
+    path: kubernetes
   destination:
     server: https://kubernetes.default.svc
-    namespace: my-app
+    namespace: final-test
 
   syncPolicy:
     syncOptions:
