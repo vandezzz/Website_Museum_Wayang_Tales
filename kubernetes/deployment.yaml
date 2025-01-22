@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
+  name: final-test
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: my-app
+      app: final-test
   template:
     metadata:
       labels:
-        app: my-app
+        app: final-test
     spec:
       containers:
-      - name: my-app-container
-        image: gebiii/my-app:v1
+      - name: final-test
+        image: gebiii/argocd-app:v1
         ports:
         - containerPort: 8080
         resources:
