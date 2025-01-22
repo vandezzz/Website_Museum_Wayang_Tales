@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: final-test
-        image: gebiii/argocd-app:v1
+        image: gebiii/final-test:1.0
         ports:
         - containerPort: 8080
         resources:
